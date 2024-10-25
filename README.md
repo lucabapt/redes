@@ -38,6 +38,33 @@ SW-SALA-13>enable
 SW-SALA-13#configure terminal
 SW-SALA-13(config)#service password-encryption
 SW-Sala-13(config)#CTRL + Z
+SW-SALA-13#show running-config
 
+SW-SALA-13>enable
+SW-SALA-13#configure terminal
+SW-SALA-13(config)#no hostname SW-SALA-13
 
+DESATIVAR UMA INTERFACE 
+
+SW-SALA-13>enable
+SW-SALA-13#configure terminal
+SW-SALA-13(config)#interface ?
+SW-SALA-13(config)#interface FastEthernet 0/2
+SW-SALA-13(config-if)#shutdown
+
+DESATIVAR VARIAS INTERFACES DE UMA SÓ VEZ 
+
+SW-SALA-13>enable
+SW-SALA-13#configure terminal
+SW-SALA-13(config)#interface range <intervalo>
+SW-SALA-13(config)#interface range FastEthernet 0/-1-3
+SW-SALA-13(config-if-range)#CTRL + Z
+SW-SALA-13# 
+
+************* COM INTERVALOS DIFERENTES 
+
+SW-SALA-13(config)#interface range FastEthernet 0/-1-3 FastEthernet 0/7 FastEthernet 0/11-24
+
+********** PARA ATIVAR **************
+SW-SALA-13(config-if-range)#no shutdown 
 
