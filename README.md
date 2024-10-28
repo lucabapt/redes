@@ -68,3 +68,93 @@ SW-SALA-13(config)#interface range FastEthernet 0/-1-3 FastEthernet 0/7 FastEthe
 ********** PARA ATIVAR **************
 SW-SALA-13(config-if-range)#no shutdown 
 
+CONFIGURANDO O CLOCK 
+
+SW-SALA-13>enable
+
+!Mostrar o clock atual
+SW-SALA-13#show clock
+
+SW-SALA-13#clock set ?
+SW-SALA-13#clock set ? 14:50:00 ?
+SW-SALA-13#clock set 14:50:00 28 OCT 2024
+
+
+CONFIGURANDO CLOCK VIA NTP
+
+
+SW-SALA-13>enable
+SW-SALA-13#configure terminal 
+SW-SALA-13(config)# ntp ?
+SW-SALA-13(config)#ntp server <IP do server NTP>
+                ex: #net server 200.20.224.100
+SW-SALA-13(config)#end
+SW-SALA-13#wr
+SW-SALA-13#exit
+
+SW-SALA-13>enable
+
+
+
+!ver memoria RAM
+SW-SALA-13#show running-config
+
+
+!ver memoria NVRAM
+SW-SALA-13#show startup config 
+
+!ver o resumo das interfaces 
+SW-SALA-13#show ip interface brief 
+
+!ver o resumo das VLANS 
+SW-SALA-13#show vlans brief 
+
+!mostrar informacoes da interface
+SW-SALA-13#show interfaces FastEthernet0/1
+
+SPEED
+10Mbps -> Ethernet0/1
+100Mbps -> FastEthernet0/1
+10000Mbps ou 1Giga -> GigabitEthernet0/1
+100000Mbps ou 10gigas ->TenGigavitEthernet0/1
+
+SALVAR AS CONFIGURAÇÕES 
+
+SW-SALA-13>enable 
+
+
+!copia da memoria RAM para NVRAM
+SW-SALA-13#copy running-config startup-config 
+
+!do wr em qualquer parte
+SW-SALA-13#wr
+
+RESETAR AS CONFIGURAÇÕES DE FABRICA 
+
+SW-SALA-13>enable
+
+!Apagar as configurações atual da NVRAM 
+SW-SALA-13#write erase 
+
+!ou 
+SW-SALA-13#erase startup-config
+
+!Reiniciar o dispositivo 
+SW-SALA-13#reload 
+
+VERIFICAR O VLAN.DAT
+SW-SALA-13>enable 
+
+
+!verificar o conteudo da vlan.dat
+SW-SALA-13#dir flash:
+
+
+
+!apagar o arquivo vlan.dat 
+SW-SALA-13#delete flash:vlan.dat
+
+!Reiniciar o dispositivo 
+SW-SALA-13#reload
+
+
