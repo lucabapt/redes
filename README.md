@@ -28,7 +28,7 @@ CONFIGURAR SENHA NA ENABLE
 
 SW-SALA-13>enable
 SW-SALA-13#configure terminal
-SW-SALA-13(config)enable password <senha> senhasegura
+SW-SALA-13(config)enable secret <senha> senhasegura
 SW-SALA-13(config)#CTRL + Z
 SW-SALA-13#exit
 
