@@ -192,3 +192,17 @@ service password-encryption
 !Criptografia 
 
 
+enable
+configure terminal
+hostname SW-CORE
+banner motd "Apenas os funcionarios do Departamento de TI da TECHNETINNOVATIONS podem acessar esse dispositivo"
+enable secret Senha*3n4b13
+line console 0
+password Senha*c0n5013
+login
+service password-encryption
+end
+wr
+
+
+
