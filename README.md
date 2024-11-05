@@ -206,3 +206,38 @@ wr
 
 
 
+!configurar o ip na interface 
+enable
+configure terminal
+interface g0/0
+ip address 192.168.0.1 255.255.255.0
+
+!vizualizar a tabela de roteamento
+enable
+configure terminal
+
+
+enable
+configure terminal
+banner motd "Acesso apenas para o Departamento de TI da Lordran S.A!"
+enable secret PraiseTheSun@00
+line console 0
+password Estus*Password
+login
+exit
+service password-encryption
+interface range 
+shutdown
+interface range g0/1 - 2, g0/4 - 24
+shutdown
+end
+write memory
+
+
+
+
+enable
+configure terminal
+hostname SW-02
+SW-SALA-13(config)#exit 
+SW-SALA-13#exit (saindo dos privilegios)
