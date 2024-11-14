@@ -241,3 +241,40 @@ configure terminal
 hostname SW-02
 SW-SALA-13(config)#exit 
 SW-SALA-13#exit (saindo dos privilegios)
+
+//configurar uma interface para o modo trunk
+enable
+#configure terminal 
+(config)#interface <nome-da-interface>
+                //ex: g0/1
+(config-if)#switchport mode trunk
+do wr                
+
+!configurar Vlan nativa na interface trunk
+enable
+#configure terminal
+(config)#interface <nome-da-interface>
+                //ex: g0/1
+(config-if)# trunk native vlan <nØ-da-vlan-nativa>
+                                !ex:99
+do wr
+
+
+!verificar as configurações da interface 
+enable
+#show interface g0/1 switchport
+
+!liberar as Vlans na interface trunk 
+enable
+#configure terminal 
+(config)#interface <nome-da-interface>
+                    !ex: g0/1
+
+(config-if)#switchport trunk allowed vlan <lista de vlans separados por virgulas> 
+    !exemplo: switchport trunk allowed vlan 10,20,30,40, 99
+
+    
+                       
+
+
+
