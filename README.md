@@ -273,8 +273,48 @@ enable
 (config-if)#switchport trunk allowed vlan <lista de vlans separados por virgulas> 
     !exemplo: switchport trunk allowed vlan 10,20,30,40, 99
 
+enable
+configure terminal
+hostname S3
+exit
+conf t
+vlan 10
+name Docente/Funcionario
+exit
+exit
+configure terminal
+vlan 20
+name Alunos
+exit
+exit
+configure terminal
+vlan 30
+name Convidado(Padrao)
+
+
+enable
+configure terminal
+interface f0/11
+switchport mode access
+switchport access vlan 10
+do wr
+end
+configure terminal
+interface f0/18
+switchport mode access
+switchport access vlan 20
+do wr
+end
+configure terminal
+interface f0/6
+switchport mode access
+switchport access vlan 30
+do wr
+
     
-                       
+
+
+
 
 
 
