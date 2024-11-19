@@ -226,6 +226,7 @@ password Estus*Password
 login
 exit
 service password-encryption
+do wr
 interface range 
 shutdown
 interface range g0/1 - 2, g0/4 - 24
@@ -312,8 +313,44 @@ switchport access vlan 30
 do wr
 
     
+enable 
+configure terminal 
+hostname SW-01
+banner motd "
+		
+		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		+                             LINOTEC-LTDA                                +
+		+             ACESSO PERMITIDO SOMENTE A PESSOAS AUTORIZADAS              +
+		+           PESSOAS NAO AUTORIZADAS DESCONECTAR IMEDIATAMENTE             +
+		+         TODAS AS CONEXOES ESTAO SENDO MONITORADAS E AUDITADAS           +
+		+                  ATTENTION: AUTHORIZED PERSONAL ONLY.                   +
+		+                         DISCONNECT IMMEDIATELY.                         +
+		+                                                                         +
+		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ "
+vlan 10
+name ALUNOS
+vlan 20 
+name PROFESSORES
+vlan 30
+name COORDENACAO
+vlan 90
+name GERENCIAMENTO
+interface range g0/1-2
+switchport mode trunk
+switchport trunk native vlan 99
+switchport trunk allowed vlan 10,20,30,90,99
+end
+wr
 
 
+
+
+
+!configurar ip no switch 
+>enable
+#configure terminal 
+(config)#interface vlan 90
+(config-if)#ip address <endereço> <mascara>
 
 
 
