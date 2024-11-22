@@ -355,3 +355,45 @@ wr
 
 
 
+!configurar subinterfaces no router
+>enable
+#configure terminal 
+(config)#interface <nome-da-subinterface>
+		!ex:interface g0/0.10
+		!sendo 10 o numero da vlan
+(config-subif)#encapsulation dot1q <nº-da-vlan>		
+(config-subif)#ip-address<ip> <mascara>
+
+
+
+!criar vlans
+enable
+conf t
+vlan 10
+name ALUNOS
+vlan 20
+name PROFESSORES
+Vlan 30
+name COORDENAÇÃO 
+
+!atribuir a Vlan as interfaces 
+int g1/0/1
+switchport mode access
+switchport access vlan 10
+no shutdown
+exit
+
+!configurar interfaces vlan
+interface vlan 10
+ip address 192.168.0.129 255.255.255/224
+no shutdown
+exit 
+
+!Ativar roteamento entre vlans
+ip routing 
+
+!salvar configurações 
+end
+wr
+
+
