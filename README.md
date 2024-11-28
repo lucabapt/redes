@@ -397,3 +397,193 @@ end
 wr
 
 
+!configurar o SSH
+!definir o nome de dominio 
+>enable 
+#configure terminal 
+(config)#ip domain-name {nome-de-dominio}
+		!Ex:ip domain-name Senai.local
+
+!definir a chave de criptografia 
+(config)#crypto key generate rsa general-keys modulus <tamanho-dachave>
+														!ex:1024
+
+!criar usuarios locais 
+(configure)#username <nome-do-usuario> privilege <1-15> secret <senha>	
+
+
+!Ativar o SSH nas linhas VTY
+(config)#line vty 0 15
+(config-line)#transport input SSH
+
+
+
+Exercicio Referente ao dia 22/11/2024
+
+!PC
+IP 192.168.10.0
+Mascara 255.255.255.0
+gateway 192.168.10.1
+
+!SW-RH
+F0/1
+dispositivo final modo access vlan 10
+
+
+g0/1
+trunk
+todas vlans
+
+!SW-CORE
+g0/1-4
+todas as vlans 
+
+f0/1
+access
+vlan 40
+
+!SW-MKT
+F0/1
+dispositivo final modo access vlan 20
+
+g0/1
+trunk
+todas vlans
+
+
+!SW-TI
+F0/
+access
+vlan 30
+
+g0/1
+trunk
+todas vlans 
+
+RT-01
+g0/0
+g0/0.10
+192.168.10.1 255.255.255.0
+
+g0/0.20
+192.168.10.1 255.255.255.0
+
+
+g0/0.30
+192.168.10.1 255.255.255.0
+
+g0/0.40
+192.168.10.1 255.255.255.0
+
+!Script 
+!SW-RH
+enable 
+conf t
+hostname SW-RH
+
+!Criar as vlans
+vlan 10
+name RH 
+
+vlan 20
+name MKT 
+
+vlan 30
+name TI
+
+vlan 40
+name DIR
+
+
+!configurar interface 
+int f0/1
+switchport mode access 
+switchport access vlan 10
+
+int g0/1
+switchport mode trunk
+switchport trunk native vlan 99
+switchport trunk allowed vlan 10,20,30,40,99
+
+!salvar
+end
+wr
+
+!RT-01
+enable
+hostname RT-01
+int g0/0
+no shutdown 
+
+int g0/0.10
+encapsulation dot1q 10
+ip add 192.168.10.1 255.255.255.0
+
+int g0/0.20
+encapsulation dot1q 20
+ip add 192.168.20.1 255.255.255.0
+
+
+int g0/0.30
+encapsulation dot1q 30
+ip add 192.168.30.1 255.255.255.0
+
+int g0/0.40
+encapsulation dot1q 40
+ip add 192.168.40.1 255.255.255.0
+
+!Mostrar as informações STP por valm
+show spanning-tree vlan1
+
+
+!mostrar as informaçoes do stp de todas as vlans
+enable
+Show spanning-tree
+
+
+!mostrar as informações de vlan
+enable
+show int vlan 1
+
+!1-Forma - mudar a prioridade 
+enable
+conf-t
+spanning-tree vlan 1 priority <numero-da-prioridade>
+								!Ex 4096
+
+2-Forma mudar prioridade da Vlan
+enable
+conf t
+spanning-tree vlan 1 root <primary-ou-secundary>
+							Ex:primary
+
+!Simular os estados das portas
+enable
+int g/1
+shutdown
+no shutdown
+do show span vlan 1
+
+!como trocar o custo da porta
+enable
+conf t
+int g0/1
+spanning-tree cost <numero-do-custo> <1-2000000000>
+	!ex: spanning-tree cost 100
+do show span vlan 
+
+!ver quais comandos podemos usar na interface
+enable
+conf t 
+int g0/1
+spanning-tree ? 
+
+!como mudar o protocolo 
+enable
+conf t 
+spanning-tree mode rapid-pvst
+
+
+
+
+
