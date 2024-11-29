@@ -584,6 +584,36 @@ conf t
 spanning-tree mode rapid-pvst
 
 
+!***********************EHT**********************************
+
+
+			!SW-01
+!configurando range F0/1-2 com Trunk e ETHERCHANNEL
+enable 
+hostname SW-01
+int range F0/1-2
+switchport mode trunk
+
+
+!escolher protocolo
+channel-protocol lacp 
+
+!escolher o grupo de portas 
+channel-group 1
+
+!escolher o grupo de portas e o modo de operação 
+channel-group 1 mode active 
+end 
+wr
+
+!verificar os detalhes Etherchannel
+enable
+show etherchannel
+show etherchannel load-balance
+show etherchannel port-c
+
+
+
 
 
 
